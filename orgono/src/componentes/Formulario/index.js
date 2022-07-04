@@ -4,7 +4,7 @@ import ListaSuspensa from '../ListaSuspensa'
 import TextField from '../TextField'
 import './Formulario.css'
 
-const Formulario = () => {
+const Formulario = (props) => {
 
     // const times = [times, setTimes] = useState('')
     const [nome, setNome] = useState('')
@@ -15,19 +15,13 @@ const Formulario = () => {
 
     const aoSalvar = (event) => {
         event.preventDefault()
-        console.log('Form enviado =>',nome, cargo, imagem, time)
+        props.aoColaboradorCadastrado({
+            nome,
+            cargo,
+            imagem,
+            time
+        })
     }
-
-    const times = [
-        'Programação',
-        'Front-end',
-        'Data Science',
-        'DevOps',
-        'UX e Design',
-        'Mobile',
-        'Inovação e gestão'
-    ]
-
 
 
     return (
@@ -43,7 +37,7 @@ const Formulario = () => {
 
             <TextField required={true} label="Cargo" placeholder="Digite seu cargo" valor={cargo} aoAlterado={valor => setCargo(valor)}/>
             <TextField required={true} label="Imagem" placeholder="Digite o endereço da imagem" valor={imagem} aoAlterado={valor => setImagem(valor)}/>
-            <ListaSuspensa required={true} label="Time" itens={times} valor={time} aoAlterado={valor => setTime(valor)}/>
+            <ListaSuspensa required={true} label="Time" itens={props.times} valor={time} aoAlterado={valor => setTime(valor)}/>
             <Botao>
             Criar Card
                 
