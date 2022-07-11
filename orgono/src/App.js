@@ -4,13 +4,6 @@ import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 
 function App() {
-
-  const [colaboradores, setColaboradores] = useState('')
-  const aoNovoColaborador = (colaborador) => {
-    console.log(colaborador)
-    setColaboradores({...colaboradores, colaborador})
-  }
-
   const times = [
     { 
       nome: 'Programação',
@@ -23,7 +16,7 @@ function App() {
       corSecundaria: '#e8f8ff'
     },
     { 
-      nome: 'Data Science',
+      nome: 'Back-end',
       corPrimaria: '#a6d157',
       corSecundaria: '#f0f8e2'
     },
@@ -49,12 +42,23 @@ function App() {
     },
   ];
 
+  const [colaboradores, setColaboradores] = useState([])
+  const aoNovoColaborador = (colaborador) => {
+    setColaboradores([...colaboradores, colaborador])
+  }
+
+
   return (
     <div className="App">
       <Banner/>
       <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaborador(colaborador)} />
 
-     {times.map(time => <Time key={time.nome} nome={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria} />)}
+     {times.map(time => <Time 
+     key={time.nome}
+      nome={time.nome}
+       corPrimaria={time.corPrimaria}
+        corSecundaria={time.corSecundaria}
+        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} />)}
 
 
     
